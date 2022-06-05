@@ -46,8 +46,10 @@ const Navbar = () => {
 
   return (
     <div className="fixed w-full h-[80px] flex justify-between items-center px-4 bg-[#0a192f] text-gray-300">
-      <div>
-        <img src={Logo} alt="Logo" style={{ width: "50px" }} />
+      <div className="cursor-pointer">
+        <Link to="home" smooth={true} duration={500}>
+          <img src={Logo} alt="Logo" style={{ width: "50px" }} />
+        </Link>
       </div>
 
       <ul className="hidden md:flex ">
@@ -82,15 +84,15 @@ const Navbar = () => {
 
       <div className="hidden lg:flex fixed flex-col top-[35%] left-0">
         <ul>
-          {social.map((fields) => (
+          {social.map(({ label, icon, color, linkUrl }) => (
             <li
-              className={`w-[160px] h-[60px] flex justify-center items-center ml-[-100px] hover:ml-[-10px] duration-300 ${fields.color}`}
+              className={`w-[160px] h-[60px] flex justify-center items-center ml-[-100px] hover:ml-[-10px] duration-300 ${color}`}
             >
               <a
                 className="flex justify-between items-center w-full text-gray-300"
-                href={fields.linkUrl}
+                href={linkUrl}
               >
-                {fields.label} {fields.icon}
+                {label} {icon}
               </a>
             </li>
           ))}
