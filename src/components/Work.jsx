@@ -1,11 +1,11 @@
 /* eslint-disable react/jsx-no-comment-textnodes */
-import React from "react";
-import WorkImg from "../assets/workImg.jpeg";
-import realEstate from "../assets/realestate.jpg";
+import React from 'react';
+import WorkImg from '../assets/workImg.jpeg';
+import realEstate from '../assets/realestate.jpg';
 
 const dataSource = [
-  { label: "React JS Application", img: WorkImg },
-  { label: "React JS Application", img: realEstate },
+  { label: 'React JS Application', img: WorkImg },
+  { label: 'React JS Application', img: realEstate },
 ];
 
 const Work = () => {
@@ -20,8 +20,9 @@ const Work = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {dataSource.map(({ label, img }) => (
+          {dataSource.map(({ label, img }, index) => (
             <div
+              key={index}
               style={{ backgroundImage: `url(${img})` }}
               className="shadow-lg shadow-[#040c16] group container rounded-md flex justify-center items-center mx-auto content-div"
             >
