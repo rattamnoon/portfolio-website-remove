@@ -1,7 +1,5 @@
 import React, { memo } from 'react';
-import { ApolloProvider } from '@apollo/client';
-import { useApollo } from './apollo/client';
-import { gql, useQuery } from '@apollo/client';
+import { gql, ApolloProvider, useQuery } from '@apollo/client';
 
 import Navbar from './components/Navbar';
 import Home from './components/Home';
@@ -12,18 +10,27 @@ import Contact from './components/Contact';
 
 import LoadingScreen from './components/LoadingScreen';
 
+import client from './apollo/client';
+
 const query = gql`
-  query getDataQuery {
-    getData
+  query {
+    skills {
+      label
+      img
+    }
+    works {
+      label
+      img
+    }
   }
 `;
 
 const App = memo(() => {
-  const { data, loading, error } = useQuery(query);
+  const { loading, error, data } = useQuery(query);
 
   if (loading) return <LoadingScreen />;
 
-  console.log(process.env);
+  console.log(data);
 
   return (
     <React.Fragment>
@@ -33,17 +40,17 @@ const App = memo(() => {
       <Skills />
       <Work />
       <Contact />
+      {error && error.message}
     </React.Fragment>
   );
 });
 
-const Main = () => {
-  const apolloClient = useApollo();
+const Index = () => {
   return (
-    <ApolloProvider client={apolloClient}>
+    <ApolloProvider client={client}>
       <App />
     </ApolloProvider>
   );
 };
 
-export default Main;
+export default Index;

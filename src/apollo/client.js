@@ -1,47 +1,69 @@
-import { useMemo } from 'react';
-import { ApolloClient, InMemoryCache } from '@apollo/client';
+import {
+  ApolloClient,
+  InMemoryCache,
+  HttpLink,
+  // Observable,
+  from,
+} from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
 
-let apolloClient;
+export const mainUrl =
+  process.env.NODE_ENV === 'production'
+    ? 'https://api.myorigin.net'
+    : 'http://localhost:4000';
 
-function createIsomorphLink() {
-  if (typeof window === 'object') {
-    const { SchemaLink } = require('@apollo/client/link/schema');
-    const { schema } = require('./schema');
-    return new SchemaLink({ schema });
-  } else {
-    const { HttpLink } = require('@apollo/client/link/http');
-    return new HttpLink({
-      uri: '/api/graphql',
-      credentials: 'same-origin',
-    });
-  }
-}
+const httpLink = new HttpLink({
+  uri: `${mainUrl}/graphql`,
+});
+// const apiToken = 's5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F';
+const authLink = setContext(async (request, previousContext) => {
+  const { headers } = previousContext;
+  // const { AuthReducer } = storeConfig.store.getState();
+  // const { token } = AuthReducer;
 
-function createApolloClient() {
-  return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
-    link: createIsomorphLink(),
-    cache: new InMemoryCache(),
-  });
-}
+  return {
+    headers: {
+      ...headers,
+      Authorization: `Bearer ${process.env.REACT_APP_API_AUTH_TOKEN}`,
+      // 'x-token':
+      // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJyYXR0YW1ub29uLmsiLCJlbWFpbCI6InJhdHRhbW5vb24ua2lyQGdtYWlsLmNvbSIsImlhdCI6MTY1NDY1ODYwNiwiZXhwIjoxNjU5ODQyNjA2fQ.wZXTeH8uoKw6ggvufvOQnVEQkGjn38FguS-JP5Esarc',
+    },
+  };
+});
+const linkErr = onError(
+  ({ graphQLErrors, networkError, operation, forward }) => {
+    if (graphQLErrors) {
+      const notAuth = graphQLErrors.reduce((pre, cur) => {
+        if (
+          cur.message === 'Not authenticated' ||
+          cur.message === 'Not Authorised!' ||
+          cur.message ===
+            'Access denied! You need to be authorized to perform this action!' ||
+          cur.message.includes('Not authenticated')
+        ) {
+          return true;
+        }
 
-export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient();
+        return pre;
+      }, false);
 
-  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
-  // get hydrated here
-  if (initialState) {
-    _apolloClient.cache.restore(initialState);
-  }
-  // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') return _apolloClient;
-  // Create the Apollo Client once in the client
-  if (!apolloClient) apolloClient = _apolloClient;
+      console.log('notAuth', notAuth);
 
-  return _apolloClient;
-}
+      graphQLErrors.forEach(({ extensions, message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+        ),
+      );
+    }
 
-export function useApollo(initialState) {
-  const store = useMemo(() => initializeApollo(initialState), [initialState]);
-  return store;
-}
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  },
+);
+
+export default new ApolloClient({
+  link: from([linkErr, authLink, httpLink]),
+  cache: new InMemoryCache(),
+});

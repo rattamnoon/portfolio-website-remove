@@ -29,7 +29,7 @@ const LoadingScreen = ({ full, component }) => {
     );
 
   return (
-    <div className="flex w-screen h-screen bg-white opacity-75 justify-center items-center">
+    <div className="flex w-screen h-screen bg-[#0a192f] justify-center items-center">
       <div className="sk-folding-cube">
         <div className="sk-cube1 sk-cube"></div>
         <div className="sk-cube2 sk-cube"></div>
