@@ -14,6 +14,10 @@ import client from './apollo/client';
 
 const query = gql`
   query {
+    profile {
+      fistName
+      lastName
+    }
     skills {
       label
       img
@@ -30,12 +34,10 @@ const App = memo(() => {
 
   if (loading) return <LoadingScreen />;
 
-  console.log(data);
-
   return (
     <React.Fragment>
       <Navbar />
-      <Home />
+      <Home data={data.profile} />
       <About />
       <Skills data={data.skills} />
       <Work data={data.skills} />
