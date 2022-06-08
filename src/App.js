@@ -37,8 +37,8 @@ const App = memo(() => {
       <Navbar />
       <Home />
       <About />
-      <Skills />
-      <Work />
+      <Skills data={data.skills} />
+      <Work data={data.skills} />
       <Contact />
       {error && error.message}
     </React.Fragment>
