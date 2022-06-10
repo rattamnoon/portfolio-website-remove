@@ -1,22 +1,12 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  HttpLink,
-  // Observable,
-  from,
-} from '@apollo/client';
+import { ApolloClient, InMemoryCache, HttpLink, from } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
 
-export const mainUrl =
-  process.env.NODE_ENV === 'production'
-    ? 'https://api.myorigin.net'
-    : 'http://localhost:4000';
+import mainUrl from '../config/mainUrl';
 
 const httpLink = new HttpLink({
   uri: `${mainUrl}/graphql`,
 });
-// const apiToken = 's5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F';
 const authLink = setContext(async (request, previousContext) => {
   const { headers } = previousContext;
   // const { AuthReducer } = storeConfig.store.getState();
@@ -31,6 +21,7 @@ const authLink = setContext(async (request, previousContext) => {
     },
   };
 });
+
 const linkErr = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
     if (graphQLErrors) {
