@@ -4,31 +4,32 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import Logo from '../../../assets/logo.png';
 import { Link } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 
 const social = [
   {
     label: 'Linkedin',
     color: 'bg-blue-600',
     icon: <FaLinkedin size={30} />,
-    linkUrl: '/',
+    url: '/',
   },
   {
     label: 'GitHub',
     color: 'bg-[#333333]',
     icon: <FaGithub size={30} />,
-    linkUrl: 'https://github.com/rattamnoon',
+    url: 'https://github.com/rattamnoon',
   },
   {
     label: 'Email',
     color: 'bg-[#6fc2b0]',
     icon: <HiOutlineMail size={30} />,
-    linkUrl: 'mailto:rattamnoon.kir@gmail.com',
+    url: 'mailto:rattamnoon.kir@gmail.com',
   },
   {
     label: 'Resume',
     color: 'bg-[#565f69]',
     icon: <BsFillPersonLinesFill size={30} />,
-    linkUrl: '/',
+    url: '/',
   },
 ];
 
@@ -41,8 +42,11 @@ const page = [
 ];
 
 const Navbar = () => {
+  const history = useNavigate();
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
+
+  console.log(history);
 
   return (
     <div className="fixed w-full h-[80px] flex justify-between items-center px-4 bg-[#0a192f] text-gray-300">
@@ -84,14 +88,14 @@ const Navbar = () => {
 
       <div className="hidden lg:flex fixed flex-col top-[35%] left-0">
         <ul>
-          {social.map(({ label, icon, color, linkUrl }) => (
+          {social.map(({ label, icon, color, url }) => (
             <li
               key={label}
               className={`w-[160px] h-[60px] flex justify-center items-center ml-[-100px] hover:ml-[-10px] duration-300 ${color}`}
             >
               <a
                 className="flex justify-between items-center w-full text-gray-300"
-                href={linkUrl}
+                href={url}
               >
                 {label} {icon}
               </a>
