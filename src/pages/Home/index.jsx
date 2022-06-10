@@ -10,7 +10,7 @@ import Contact from './components/Contact';
 
 import query from './schema/profile';
 
-import LoadingScreen from './components/LoadingScreen';
+import LoadingScreen from '../../components/LoadingScreen';
 
 const App = () => {
   const { loading, error, data } = useQuery(query);
