@@ -4,7 +4,7 @@ import { HiOutlineMail } from 'react-icons/hi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import Logo from '../../../assets/logo.png';
 import { Link } from 'react-scroll';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const social = [
   {
@@ -42,11 +42,9 @@ const page = [
 ];
 
 const Navbar = () => {
-  const history = useNavigate();
+  // const history = useNavigate();
   const [nav, setNav] = useState(false);
   const handleClick = () => setNav(!nav);
-
-  console.log(history);
 
   return (
     <div className="fixed w-full h-[80px] flex justify-between items-center px-4 bg-[#0a192f] text-gray-300">
