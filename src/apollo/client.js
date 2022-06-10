@@ -16,8 +16,8 @@ const authLink = setContext(async (request, previousContext) => {
     headers: {
       ...headers,
       Authorization: `Bearer ${process.env.REACT_APP_API_AUTH_TOKEN}`,
-      // 'x-token':
-      // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJyYXR0YW1ub29uLmsiLCJlbWFpbCI6InJhdHRhbW5vb24ua2lyQGdtYWlsLmNvbSIsImlhdCI6MTY1NDY1ODYwNiwiZXhwIjoxNjU5ODQyNjA2fQ.wZXTeH8uoKw6ggvufvOQnVEQkGjn38FguS-JP5Esarc',
+      'x-token': 'un',
+      'x-refreshToken': 'un',
     },
   };
 });
