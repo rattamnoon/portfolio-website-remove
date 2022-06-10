@@ -1,14 +1,6 @@
 import React from 'react';
 
-import workImg from '../../../assets/workImg.jpeg';
-import realEstate from '../../../assets/realestate.jpg';
-
-const dataSource = [
-  { label: 'React JS Application', img: workImg },
-  { label: 'React JS Application', img: realEstate },
-];
-
-const Work = () => {
+const Work = ({ data }) => {
   return (
     <div name="work" className="w-full md:h-screen text-gray-300 bg-[#0a192f]">
       <div className="max-w-[1000px] mx-auto p-4 flex flex-col justify-center w-full h-full">
@@ -20,10 +12,12 @@ const Work = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {dataSource.map(({ label, img }, index) => (
+          {data.map(({ label, img }, index) => (
             <div
               key={index}
-              style={{ backgroundImage: `url(${img})` }}
+              style={{
+                backgroundImage: `url(http://localhost:4000/static/portfolio/${img})`,
+              }}
               className="shadow-lg shadow-[#040c16] group container rounded-md flex justify-center items-center mx-auto content-div"
             >
               <div className="opacity-0 group-hover:opacity-100">

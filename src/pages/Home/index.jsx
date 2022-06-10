@@ -23,7 +23,7 @@ const App = () => {
       <Home data={data?.profile} />
       <About />
       <Skills data={data?.skills} />
-      <Work data={data?.skills} />
+      <Work data={data?.works} />
       <Contact />
       {error && error.message}
     </React.Fragment>
