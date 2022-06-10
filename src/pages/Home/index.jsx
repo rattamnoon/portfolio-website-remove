@@ -20,10 +20,10 @@ const App = () => {
   return (
     <React.Fragment>
       <Navbar />
-      <Home data={data.profile} />
+      <Home data={data?.profile} />
       <About />
-      <Skills data={data.skills} />
-      <Work data={data.skills} />
+      <Skills data={data?.skills} />
+      <Work data={data?.skills} />
       <Contact />
       {error && error.message}
     </React.Fragment>
