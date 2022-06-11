@@ -25,9 +25,16 @@ const Async404 = Loadable({
   delay: 5000,
 });
 
+const AsyncDashboard = Loadable({
+  loader: () => import('../pages/Dashboard'),
+  loading: () => <LoadingScreen />,
+  delay: 5000,
+});
+
 const routes = [
   { path: '/', exact: true, element: <AsyncHome /> },
   { path: '/login', exact: true, element: <AsyncLogin /> },
+  { path: '/dashboard', exact: true, element: <AsyncDashboard /> },
 ];
 
 const App = ({ childProps }) => {

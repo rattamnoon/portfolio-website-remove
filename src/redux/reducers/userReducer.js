@@ -2,7 +2,6 @@ import decode from 'jwt-decode';
 import jwtDecode from 'jwt-decode';
 
 const PORTFOLIO_LOGIN = 'portfolio/login';
-const decremented = 'counter/decremented';
 
 const checkAuth = (token, refreshToken) => {
   if (!token || !refreshToken) return { user: null };
@@ -53,9 +52,4 @@ export default reducer;
 export const login = (token, refreshToken) => ({
   type: PORTFOLIO_LOGIN,
   payloads: { token, refreshToken },
-});
-
-export const Decremented = value => ({
-  type: decremented,
-  payloads: { value },
 });
