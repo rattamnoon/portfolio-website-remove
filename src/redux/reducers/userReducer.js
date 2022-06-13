@@ -2,6 +2,8 @@ import decode from 'jwt-decode';
 import jwtDecode from 'jwt-decode';
 
 const PORTFOLIO_LOGIN = 'portfolio/login';
+const PORTFOLIO_UPDATE_TOKEN = 'portfolio/update/token';
+const PORTFOLIO_UPDATE_REFRESH_TOKEN = 'portfolio/update/refresh_token';
 
 const checkAuth = (token, refreshToken) => {
   if (!token || !refreshToken) return { user: null };
@@ -42,6 +44,16 @@ const reducer = (state = initialState, action) => {
       };
     }
 
+    case PORTFOLIO_UPDATE_TOKEN: {
+      const data = action.payloads;
+      return { ...state, data };
+    }
+
+    case PORTFOLIO_UPDATE_REFRESH_TOKEN: {
+      const { payloads } = action;
+      return { ...state, refreshToken: payloads.refreshToken };
+    }
+
     default:
       return state;
   }
@@ -52,4 +64,17 @@ export default reducer;
 export const login = (token, refreshToken) => ({
   type: PORTFOLIO_LOGIN,
   payloads: { token, refreshToken },
+});
+
+export const updateToken = token => {
+  const data = jwtDecode(token);
+  return {
+    type: PORTFOLIO_UPDATE_TOKEN,
+    payloads: { data },
+  };
+};
+
+export const updateRefreshToken = refreshToken => ({
+  type: PORTFOLIO_UPDATE_REFRESH_TOKEN,
+  payloads: { refreshToken },
 });
