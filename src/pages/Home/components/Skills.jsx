@@ -1,4 +1,5 @@
 import React from 'react';
+import mainUrl from '../../../config/mainUrl';
 
 const Skills = ({ data }) => {
   return (
@@ -18,8 +19,7 @@ const Skills = ({ data }) => {
             >
               <img
                 className="w-20 mx-auto"
-                src={`http://localhost:4000/static/portfolio/${img}`}
-                // src={`http://localhost:4000/static/portfolio/react.png`}
+                src={`${mainUrl}/static/portfolio/${img}`}
                 alt={label}
               />
               <p className="my-4">{label}</p>

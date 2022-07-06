@@ -1,4 +1,5 @@
 import React from 'react';
+import mainUrl from '../../../config/mainUrl';
 
 const Work = ({ data }) => {
   return (
@@ -16,7 +17,7 @@ const Work = ({ data }) => {
             <div
               key={index}
               style={{
-                backgroundImage: `url(http://localhost:4000/static/portfolio/${img})`,
+                backgroundImage: `url(${mainUrl}/static/portfolio/${img})`,
               }}
               className="shadow-lg shadow-[#040c16] group container rounded-md flex justify-center items-center mx-auto content-div"
             >

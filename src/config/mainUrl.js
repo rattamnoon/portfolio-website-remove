@@ -1,4 +1,4 @@
-const currentUrl =
-  process.env.NODE_ENV === 'production' ? 'process' : 'http://localhost:3001';
+export const currentUrl = 'http://localhost:3001';
+export const wsUrl = 'ws://localhost:3001';
 
 export default currentUrl;
