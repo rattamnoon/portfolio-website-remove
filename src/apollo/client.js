@@ -31,8 +31,8 @@ const authLink = setContext(async (request, previousContext) => {
   return {
     headers: {
       ...headers,
-      Authorization: `Bearer F-JaNdRgUkXn2r5u`,
-      // Authorization: `Bearer ${process.env.REACT_APP_API_AUTH_TOKEN}`,
+      // Authorization: `Bearer F-JaNdRgUkXn2r5u`,
+      Authorization: `Bearer ${process.env.REACT_APP_API_AUTH_TOKEN}`,
       'x-token': 'un',
       'x-refreshToken': 'un',
     },

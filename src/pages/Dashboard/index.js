@@ -1,11 +1,5 @@
-import React, { useEffect } from 'react';
-import { gql, useQuery, useSubscription } from '@apollo/client';
-
-const QUERY = gql`
-  query {
-    getMessage
-  }
-`;
+import React from 'react';
+import { gql, useSubscription } from '@apollo/client';
 
 const SUBSCRIPTION = gql`
   subscription {
